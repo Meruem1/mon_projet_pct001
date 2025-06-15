@@ -11,10 +11,9 @@
         <h1>Mon Profil</h1>
         <nav>
             <ul>
-                <li><a href="tableau_de_bord.php">Accueil</a></li>
+                <li><a href="tableau_de_bord.html">Accueil</a></li>
                 <li><a href="mes_actes.html">Mes Actes</a></li>
                 <li><a href="demande_acte.html">Faire une Demande</a></li>
-                <li><a href="profil.php">Mon Profil</a></li>
                 <li><a href="../deconnexion.php">Déconnexion</a></li>
             </ul>
         </nav>
@@ -46,18 +45,9 @@
             <h2>Modifier le Mot de Passe</h2>
             <form action="/Projet-PCT001/api/profil.php" method="POST">
                 <input type="hidden" name="action" value="modifier_mot_de_passe">
-                <div>
-                    <label for="mot_de_passe_actuel">Mot de Passe Actuel :</label>
-                    <input type="password" id="mot_de_passe_actuel" name="mot_de_passe_actuel" required>
-                </div>
-                <div>
-                    <label for="nouveau_mot_de_passe">Nouveau Mot de Passe :</label>
-                    <input type="password" id="nouveau_mot_de_passe" name="nouveau_mot_de_passe" required>
-                </div>
-                <div>
-                    <label for="confirmer_mot_de_passe">Confirmer le Nouveau Mot de Passe :</label>
-                    <input type="password" id="confirmer_mot_de_passe" name="confirmer_mot_de_passe" required>
-                </div>
+                <input type="password" name="mot_de_passe_actuel" required placeholder="Mot de passe actuel">
+                <input type="password" name="nouveau_mot_de_passe" required placeholder="Nouveau mot de passe">
+                <input type="password" name="confirmer_mot_de_passe" required placeholder="Confirmer le nouveau mot de passe">
                 <button type="submit">Changer le Mot de Passe</button>
             </form>
         </section>

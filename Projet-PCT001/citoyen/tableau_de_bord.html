@@ -1,3 +1,7 @@
+<?php
+session_start();
+$nom = $_SESSION['citoyen_nom'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,7 +25,7 @@
     </header>
     <main>
         <section>
-            <h2>Bienvenue, [Nom du Citoyen]</h2>
+            <h2>Bienvenue, <?php echo htmlspecialchars($nom); ?></h2>
             <p>Voici un aperçu de vos informations et des actions disponibles.</p>
         </section>
         <section>

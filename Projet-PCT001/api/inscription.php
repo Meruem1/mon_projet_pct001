@@ -23,17 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-    // Nettoyer et valider les données
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "L'adresse email n'est pas valide.";
-        exit();
-    }
-
-    $nom = htmlspecialchars($nom, ENT_QUOTES, 'UTF-8');
-    $prenom = htmlspecialchars($prenom, ENT_QUOTES, 'UTF-8');
-    $numero_telephone = htmlspecialchars($numero_telephone, ENT_QUOTES, 'UTF-8');
-
     // Vérifier que les mots de passe correspondent
     if ($mot_de_passe !== $confirmer_mot_de_passe) {
         echo "Les mots de passe ne correspondent pas.";
@@ -53,13 +42,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Insérer le nouveau citoyen dans la base de données
-    $sql = "INSERT INTO citoyens (nom, prenom, email, mot_de_passe, numero_telephone) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO citoyens (nom, prenom, email, mot_de_passe, telephone) VALUES (?, ?, ?, ?, ?)";
     $stmt = $connexion->prepare($sql);
-    $mot_de_passe_hache = password_hash($mot_de_passe, PASSWORD_BCRYPT); // Hacher le mot de passe
+    $mot_de_passe_hache = password_hash($mot_de_passe, PASSWORD_BCRYPT);
     $stmt->bind_param("sssss", $nom, $prenom, $email, $mot_de_passe_hache, $numero_telephone);
 
     if ($stmt->execute()) {
-        // Redirection vers la page de connexion après une inscription réussie
+        // Enregistrer les infos dans la session (optionnel)
+        // session_start();
+        // $_SESSION['citoyen_connecte'] = true;
+        // $_SESSION['citoyen_nom'] = $nom;
+        // $_SESSION['citoyen_prenom'] = $prenom;
+        // $_SESSION['citoyen_email'] = $email;
+        // $_SESSION['citoyen_telephone'] = $numero_telephone;
+
+        // Redirection vers la page de connexion après inscription réussie
         header('Location: ../connexion_citoyen.html');
         exit();
     } else {
@@ -71,3 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     echo "Méthode non autorisée.";
 }
 ?>
+<?php if (isset($_GET['success'])): ?>
+    <div class="success"><?php echo htmlspecialchars($_GET['success']); ?></div>
+<?php endif; ?>
+<?php if (isset($_GET['error'])): ?>
+    <div class="error"><?php echo htmlspecialchars($_GET['error']); ?></div>
+<?php endif; ?>
