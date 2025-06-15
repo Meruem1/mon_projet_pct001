@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Actes - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Gestion des Actes d'État Civil</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Tableau de bord</a></li>
+                <li><a href="gestion_actes.html">Gestion des actes</a></li>
+                <li><a href="generation_pdf.html">Générer PDF</a></li>
+                <li><a href="gestion_utilisateurs.html">Gestion des utilisateurs</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="../index.html">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Liste des Demandes d'Actes</h2>
+            <p>Ici, vous verrez la liste de toutes les demandes d'actes et pourrez les gérer.</p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Type d'acte</th>
+                        <th>Demandeur (Email)</th>
+                        <th>Date de la demande</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="liste_demandes">
+                    <tr>
+                        <td>1</td>
+                        <td>Naissance</td>
+                        <td>citoyen1@exemple.com</td>
+                        <td>2025-05-04</td>
+                        <td>En attente</td>
+                        <td><a href="#">Voir</a> | <a href="#">Traiter</a></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Mariage</td>
+                        <td>citoyen2@exemple.com</td>
+                        <td>2025-05-03</td>
+                        <td>Traitée</td>
+                        <td><a href="#">Voir</a> | <a href="#">Télécharger PDF</a></td>
+                    </tr>
+                    </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+    <script src="../ressources/js/script.js"></script>
+    <script>
+        // Ici, vous utiliserez JavaScript pour récupérer la liste des demandes d'actes
+        // depuis le backend et les afficher dynamiquement dans le tableau.
+        document.addEventListener('DOMContentLoaded', function() {
+            // Exemple de données (à remplacer par un appel API réel)
+            const demandes = [
+                { id: 1, type: 'Naissance', demandeur: 'citoyen1@exemple.com', date: '2025-05-04', statut: 'En attente' },
+                { id: 2, type: 'Mariage', demandeur: 'citoyen2@exemple.com', date: '2025-05-03', statut: 'Traitée' },
+                { id: 3, type: 'Décès', demandeur: 'citoyen3@exemple.com', date: '2025-05-02', statut: 'En attente' }
+            ];
+
+            const listeDemandesTable = document.getElementById('liste_demandes');
+
+            demandes.forEach(demande => {
+                const row = listeDemandesTable.insertRow();
+                const idCell = row.insertCell();
+                const typeCell = row.insertCell();
+                const demandeurCell = row.insertCell();
+                const dateCell = row.insertCell();
+                const statutCell = row.insertCell();
+                const actionsCell = row.insertCell();
+
+                idCell.textContent = demande.id;
+                typeCell.textContent = demande.type;
+                demandeurCell.textContent = demande.demandeur;
+                dateCell.textContent = demande.date;
+                statutCell.textContent = demande.statut;
+                actionsCell.innerHTML = `<a href="#">Voir</a> | <a href="#">Traiter</a>`; // Ajouter des liens appropriés
+            });
+        });
+    </script>
+</body>
+</html>

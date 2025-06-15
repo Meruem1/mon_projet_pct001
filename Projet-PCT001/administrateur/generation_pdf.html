@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Génération de PDF - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Génération et Signature de PDF</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Tableau de bord</a></li>
+                <li><a href="gestion_actes.html">Gestion des actes</a></li>
+                <li><a href="generation_pdf.html">Générer PDF</a></li>
+                <li><a href="gestion_utilisateurs.html">Gestion des utilisateurs</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="../index.html">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Sélectionner l'Acte à Générer</h2>
+            <form action="/api/admin.php" method="POST"> <input type="hidden" name="action" value="generer_pdf">
+                <div>
+                    <label for="id_demande">ID de la Demande:</label>
+                    <input type="number" id="id_demande" name="id_demande" required>
+                </div>
+                <div>
+                    <label for="type_acte">Type d'acte:</label>
+                    <select id="type_acte" name="type_acte">
+                        <option value="naissance">Naissance</option>
+                        <option value="mariage">Mariage</option>
+                        <option value="deces">Décès</option>
+                    </select>
+                </div>
+                <button type="submit">Générer le PDF</button>
+            </form>
+        </section>
+        <section>
+            <h2>Fichiers PDF Générés Récemment</h2>
+            <ul>
+                <li><a href="#">acte_naissance_123.pdf</a> (Généré le 2025-05-04)</li>
+                <li><a href="#">acte_mariage_456.pdf</a> (Généré le 2025-05-03)</li>
+                </ul>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+    <script src="../ressources/js/script.js"></script>
+</body>
+</html>

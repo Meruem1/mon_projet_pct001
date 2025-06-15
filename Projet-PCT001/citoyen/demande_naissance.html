@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande d'Acte de Naissance - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Demande d'Acte de Naissance</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Tableau de bord</a></li>
+                <li><a href="../index.html">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Informations sur la personne concernée</h2>
+            <form action="/api/actes.php" method="POST"> <input type="hidden" name="action" value="demande_naissance">
+                <div>
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div>
+                    <label for="prenoms">Prénoms:</label>
+                    <input type="text" id="prenoms" name="prenoms" required>
+                </div>
+                <div>
+                    <label for="date_naissance">Date de naissance:</label>
+                    <input type="date" id="date_naissance" name="date_naissance" required>
+                </div>
+                <div>
+                    <label for="lieu_naissance">Lieu de naissance:</label>
+                    <input type="text" id="lieu_naissance" name="lieu_naissance" required>
+                </div>
+                <div>
+                    <label for="nom_pere">Nom du père:</label>
+                    <input type="text" id="nom_pere" name="nom_pere">
+                </div>
+                <div>
+                    <label for="prenoms_pere">Prénoms du père:</label>
+                    <input type="text" id="prenoms_pere" name="prenoms_pere">
+                </div>
+                <div>
+                    <label for="nom_mere">Nom de la mère:</label>
+                    <input type="text" id="nom_mere" name="nom_mere" required>
+                </div>
+                <div>
+                    <label for="prenoms_mere">Prénoms de la mère:</label>
+                    <input type="text" id="prenoms_mere" name="prenoms_mere" required>
+                </div>
+                <div>
+                    <label for="nombre_copies">Nombre de copies souhaitées:</label>
+                    <input type="number" id="nombre_copies" name="nombre_copies" value="1" min="1" required>
+                </div>
+                <div>
+                    <label for="paiement">Mode de paiement:</label>
+                    <select id="paiement" name="mode_paiement">
+                        <option value="en_ligne">Paiement en ligne</option>
+                        <option value="guichet">Paiement au guichet (à préciser)</option>
+                    </select>
+                </div>
+                <button type="submit">Soumettre la demande</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+    <script src="../ressources/js/script.js"></script>
+</body>
+</html>

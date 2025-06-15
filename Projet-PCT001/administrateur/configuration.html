@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Configuration</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Tableau de bord</a></li>
+                <li><a href="gestion_actes.html">Gestion des actes</a></li>
+                <li><a href="generation_pdf.html">Générer PDF</a></li>
+                <li><a href="gestion_utilisateurs.html">Gestion des utilisateurs</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="../index.html">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Paramètres Généraux</h2>
+            <form action="/api/configuration.php" method="POST">
+                <div>
+                    <label for="nom_commune">Nom de la Commune/Sous-préfecture :</label>
+                    <input type="text" id="nom_commune" name="nom_commune" value="[Nom de la Commune]" required>
+                </div>
+                <div>
+                    <label for="email_contact">Email de Contact :</label>
+                    <input type="email" id="email_contact" name="email_contact" value="contact@exemple.com" required>
+                </div>
+                <div>
+                    <label for="telephone_contact">Téléphone de Contact :</label>
+                    <input type="tel" id="telephone_contact" name="telephone_contact" value="0123456789" required>
+                </div>
+                <button type="submit">Enregistrer les Modifications</button>
+            </form>
+        </section>
+        <section>
+            <h2>Gestion des Administrateurs</h2>
+            <p>Vous pouvez réinitialiser les mots de passe des administrateurs ou en ajouter de nouveaux.</p>
+            <a href="gestion_utilisateurs.html">Gérer les Administrateurs</a>
+        </section>
+        <section>
+            <h2>Préférences</h2>
+            <form action="/api/preferences.php" method="POST">
+                <div>
+                    <label for="theme">Thème :</label>
+                    <select id="theme" name="theme">
+                        <option value="clair">Clair</option>
+                        <option value="sombre">Sombre</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="langue">Langue :</label>
+                    <select id="langue" name="langue">
+                        <option value="fr">Français</option>
+                        <option value="en">Anglais</option>
+                    </select>
+                </div>
+                <button type="submit">Enregistrer les Préférences</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+</body>
+</html>

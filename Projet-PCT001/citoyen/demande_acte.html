@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faire une Demande d'Acte - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Faire une Demande d'Acte</h1>
+        <nav>
+            <ul>
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="mes_actes.html">Mes Actes</a></li>
+                <li><a href="demande_acte.html">Faire une Demande</a></li>
+                <li><a href="../deconnexion.php">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Formulaire de Demande d'Acte</h2>
+            <form action="/Projet-PCT001/api/demande_acte.php" method="POST">
+                <div>
+                    <label for="type_acte">Type d'Acte :</label>
+                    <select id="type_acte" name="type_acte" required onchange="afficherChampsSpecifiques()">
+                        <option value="">-- Sélectionnez un type d'acte --</option>
+                        <option value="naissance">Acte de Naissance</option>
+                        <option value="mariage">Acte de Mariage</option>
+                        <option value="deces">Acte de Décès</option>
+                    </select>
+                </div>
+                <div id="champs_specifiques"></div>
+                <div>
+                    <label for="motif">Motif de la Demande :</label>
+                    <textarea id="motif" name="motif" rows="4" required></textarea>
+                </div>
+                <button type="submit">Soumettre la Demande</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+    <script>
+        function afficherChampsSpecifiques() {
+            const typeActe = document.getElementById('type_acte').value;
+            const champsSpecifiques = document.getElementById('champs_specifiques');
+            champsSpecifiques.innerHTML = '';
+
+            if (typeActe === 'naissance') {
+                champsSpecifiques.innerHTML = `
+                     <div>
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div>
+                    <label for="prenoms">Prénoms:</label>
+                    <input type="text" id="prenoms" name="prenoms" required>
+                </div>
+                <div>
+                    <label for="date_naissance">Date de naissance:</label>
+                    <input type="date" id="date_naissance" name="date_naissance" required>
+                </div>
+                <div>
+                    <label for="lieu_naissance">Lieu de naissance:</label>
+                    <input type="text" id="lieu_naissance" name="lieu_naissance" required>
+                </div>
+                <div>
+                    <label for="nom_pere">Nom du père:</label>
+                    <input type="text" id="nom_pere" name="nom_pere">
+                </div>
+                <div>
+                    <label for="prenoms_pere">Prénoms du père:</label>
+                    <input type="text" id="prenoms_pere" name="prenoms_pere">
+                </div>
+                <div>
+                    <label for="nom_mere">Nom de la mère:</label>
+                    <input type="text" id="nom_mere" name="nom_mere" required>
+                </div>
+                <div>
+                    <label for="prenoms_mere">Prénoms de la mère:</label>
+                    <input type="text" id="prenoms_mere" name="prenoms_mere" required>
+                </div>
+                <div>
+                    <label for="nombre_copies">Nombre de copies souhaitées:</label>
+                    <input type="number" id="nombre_copies" name="nombre_copies" value="1" min="1" required>
+                </div>
+                `;
+            } else if (typeActe === 'mariage') {
+                champsSpecifiques.innerHTML = `
+                    <div>
+                    <label for="nom_epoux">Nom de l'Époux :</label>
+                    <input type="text" id="nom_epoux" name="nom_epoux" required>
+                </div>
+                <div>
+                    <label for="prenom_epoux">Prénom de l'Époux :</label>
+                    <input type="text" id="prenom_epoux" name="prenom_epoux" required>
+                </div>
+                <div>
+                    <label for="nom_epouse">Nom de l'Épouse :</label>
+                    <input type="text" id="nom_epouse" name="nom_epouse" required>
+                </div>
+                <div>
+                    <label for="prenom_epouse">Prénom de l'Épouse :</label>
+                    <input type="text" id="prenom_epouse" name="prenom_epouse" required>
+                </div>
+                <div>
+                    <label for="date_mariage">Date du Mariage :</label>
+                    <input type="date" id="date_mariage" name="date_mariage" required>
+                </div>
+                <div>
+                    <label for="lieu_mariage">Lieu du Mariage :</label>
+                    <input type="text" id="lieu_mariage" name="lieu_mariage" required>
+                </div>
+                `;
+            } else if (typeActe === 'deces') {
+                champsSpecifiques.innerHTML = `
+                    <div>
+                    <label for="nom_defunt">Nom:</label>
+                    <input type="text" id="nom_defunt" name="nom_defunt" required>
+                </div>
+                <div>
+                    <label for="prenoms_defunt">Prénoms:</label>
+                    <input type="text" id="prenoms_defunt" name="prenoms_defunt" required>
+                </div>
+                <div>
+                    <label for="date_deces">Date de décès:</label>
+                    <input type="date" id="date_deces" name="date_deces" required>
+                </div>
+                <div>
+                    <label for="lieu_deces">Lieu de décès:</label>
+                    <input type="text" id="lieu_deces" name="lieu_deces" required>
+                </div>
+                <div>
+                    <label for="date_naissance_defunt">Date de naissance:</label>
+                    <input type="date" id="date_naissance_defunt" name="date_naissance_defunt">
+                </div>
+                <div>
+                    <label for="lieu_naissance_defunt">Lieu de naissance:</label>
+                    <input type="text" id="lieu_naissance_defunt" name="lieu_naissance_defunt">
+                </div>
+                <div>
+                    <label for="nom_pere_defunt">Nom du père (facultatif):</label>
+                    <input type="text" id="nom_pere_defunt" name="nom_pere_defunt">
+                </div>
+                <div>
+                    <label for="prenoms_pere_defunt">Prénoms du père (facultatif):</label>
+                    <input type="text" id="prenoms_pere_defunt" name="prenoms_pere_defunt">
+                </div>
+                <div>
+                    <label for="nom_mere_defunt">Nom de la mère (facultatif):</label>
+                    <input type="text" id="nom_mere_defunt" name="nom_mere_defunt">
+                </div>
+                <div>
+                    <label for="prenoms_mere_defunt">Prénoms de la mère (facultatif):</label>
+                    <input type="text" id="prenoms_mere_defunt" name="prenoms_mere_defunt">
+                </div>
+
+                <h2>Informations sur le déclarant</h2>
+                <div>
+                    <label for="nom_declarant">Nom:</label>
+                    <input type="text" id="nom_declarant" name="nom_declarant" required>
+                </div>
+                <div>
+                    <label for="prenoms_declarant">Prénoms:</label>
+                    <input type="text" id="prenoms_declarant" name="prenoms_declarant" required>
+                </div>
+                <div>
+                    <label for="lien_parente">Lien de parenté avec le défunt:</label>
+                    <input type="text" id="lien_parente" name="lien_parente">
+                </div>
+                <div>
+                    <label for="adresse_declarant">Adresse du déclarant:</label>
+                    <textarea id="adresse_declarant" name="adresse_declarant"></textarea>
+                </div>
+                <div>
+                    <label for="nombre_copies">Nombre de copies souhaitées:</label>
+                    <input type="number" id="nombre_copies" name="nombre_copies" value="1" min="1" required>
+                </div>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

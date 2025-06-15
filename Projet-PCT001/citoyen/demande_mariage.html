@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande d'Acte de Mariage - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Demande d'Acte de Mariage</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Accueil</a></li>
+                <li><a href="mes_actes.html">Mes Actes</a></li>
+                <li><a href="demande_acte.html">Faire une Demande</a></li>
+                <li><a href="profil.html">Mon Profil</a></li>
+                <li><a href="../index.html">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Formulaire de Demande</h2>
+            <p>Veuillez remplir les informations ci-dessous pour soumettre une demande d'acte de mariage.</p>
+            <form action="/api/demande_mariage.php" method="POST">
+                <div>
+                    <label for="nom_epoux">Nom de l'Époux :</label>
+                    <input type="text" id="nom_epoux" name="nom_epoux" required>
+                </div>
+                <div>
+                    <label for="prenom_epoux">Prénom de l'Époux :</label>
+                    <input type="text" id="prenom_epoux" name="prenom_epoux" required>
+                </div>
+                <div>
+                    <label for="nom_epouse">Nom de l'Épouse :</label>
+                    <input type="text" id="nom_epouse" name="nom_epouse" required>
+                </div>
+                <div>
+                    <label for="prenom_epouse">Prénom de l'Épouse :</label>
+                    <input type="text" id="prenom_epouse" name="prenom_epouse" required>
+                </div>
+                <div>
+                    <label for="date_mariage">Date du Mariage :</label>
+                    <input type="date" id="date_mariage" name="date_mariage" required>
+                </div>
+                <div>
+                    <label for="lieu_mariage">Lieu du Mariage :</label>
+                    <input type="text" id="lieu_mariage" name="lieu_mariage" required>
+                </div>
+                <div>
+                    <label for="email_contact">Email de Contact :</label>
+                    <input type="email" id="email_contact" name="email_contact" required>
+                </div>
+                <button type="submit">Soumettre la Demande</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+</body>
+</html>

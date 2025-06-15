@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion Citoyen - De La MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Connexion Espace Citoyen</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Connectez-vous à votre compte</h2>
+            <!-- Affichage des erreurs -->
+            <?php if (isset($_GET['erreur'])): ?>
+                <p style="color: red;"><?php echo htmlspecialchars($_GET['erreur']); ?></p>
+            <?php endif; ?>
+            <form action="/Projet-PCT001/api/citoyens.php" method="POST">
+                <input type="hidden" name="action" value="connexion">
+                <div>
+                    <label for="email">Adresse e-mail :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="mot_de_passe">Mot de passe :</label>
+                    <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+                </div>
+                <button type="submit">Se connecter</button>
+                <p>Pas encore de compte ? <a href="inscription_citoyen.html">Inscrivez-vous</a></p>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+    <script src="ressources/js/script.js"></script>
+</body>
+</html>

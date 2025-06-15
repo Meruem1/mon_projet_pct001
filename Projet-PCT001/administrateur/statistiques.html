@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistiques - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Statistiques</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Tableau de bord</a></li>
+                <li><a href="gestion_actes.html">Gestion des actes</a></li>
+                <li><a href="generation_pdf.html">Générer PDF</a></li>
+                <li><a href="gestion_utilisateurs.html">Gestion des utilisateurs</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="../index.html">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Statistiques des Utilisateurs</h2>
+            <p>Voici un aperçu des statistiques des utilisateurs enregistrés.</p>
+            <canvas id="chartStatistiques" width="400" height="200"></canvas>
+        </section>
+        <section>
+            <h2>Détails des Statistiques</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Valeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Nombre total d'utilisateurs</td>
+                        <td id="totalUtilisateurs">0</td>
+                    </tr>
+                    <tr>
+                        <td>Utilisateurs actifs</td>
+                        <td id="utilisateursActifs">0</td>
+                    </tr>
+                    <tr>
+                        <td>Utilisateurs inactifs</td>
+                        <td id="utilisateursInactifs">0</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Exemple de données (à remplacer par un appel API)
+            const statistiques = {
+                total: 150,
+                actifs: 120,
+                inactifs: 30
+            };
+
+            // Mise à jour des valeurs dans le tableau
+            document.getElementById('totalUtilisateurs').textContent = statistiques.total;
+            document.getElementById('utilisateursActifs').textContent = statistiques.actifs;
+            document.getElementById('utilisateursInactifs').textContent = statistiques.inactifs;
+
+            // Configuration du graphique
+            const ctx = document.getElementById('chartStatistiques').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Actifs', 'Inactifs'],
+                    datasets: [{
+                        label: 'Statistiques des utilisateurs',
+                        data: [statistiques.actifs, statistiques.inactifs],
+                        backgroundColor: ['#4CAF50', '#F44336']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const total = statistiques.total;
+                                    const value = context.raw;
+                                    const percentage = ((value / total) * 100).toFixed(2);
+                                    return `${context.label}: ${value} (${percentage}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

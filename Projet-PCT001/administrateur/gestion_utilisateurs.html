@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Utilisateurs - DE LA MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="../ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Gestion des Utilisateurs</h1>
+        <nav>
+            <ul>
+                <li><a href="tableau_de_bord.html">Tableau de bord</a></li>
+                <li><a href="gestion_actes.html">Gestion des actes</a></li>
+                <li><a href="generation_pdf.html">Générer PDF</a></li>
+                <li><a href="gestion_utilisateurs.html">Gestion des utilisateurs</a></li>
+                <li><a href="statistiques.html">Statistiques</a></li>
+                <li><a href="configuration.html">Configuration</a></li>
+                <li><a href="../index.html">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Liste des Utilisateurs Citoyens</h2>
+            <p>Ici, vous pouvez gérer les comptes des citoyens.</p>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Email</th>
+                        <th>Date d'inscription</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="liste_citoyens">
+                    <!-- Les lignes seront ajoutées dynamiquement via JavaScript -->
+                </tbody>
+            </table>
+        </section>
+        <section>
+            <h2>Ajouter un Nouvel Administrateur</h2>
+            <form action="/api/admin.php" method="POST">
+                <input type="hidden" name="action" value="ajouter_admin">
+                <div>
+                    <label for="nouvel_identifiant">Identifiant:</label>
+                    <input type="text" id="nouvel_identifiant" name="nouvel_identifiant" required>
+                </div>
+                <div>
+                    <label for="nouveau_mot_de_passe">Mot de passe:</label>
+                    <input type="password" id="nouveau_mot_de_passe" name="nouveau_mot_de_passe" required>
+                </div>
+                <button type="submit">Ajouter Administrateur</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025  MAIRIE DE BOTRO</p>
+    </footer>
+    <script src="../ressources/js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Exemple de données (à remplacer par un appel API)
+            const citoyens = [
+                { id: 1, nom: 'Dupont', prenom: 'Jean', email: 'jean.dupont@exemple.com', date_inscription: '2025-05-01' },
+                { id: 2, nom: 'Martin', prenom: 'Claire', email: 'claire.martin@exemple.com', date_inscription: '2025-04-28' }
+            ];
+
+            const listeCitoyensTable = document.getElementById('liste_citoyens');
+
+            try {
+                citoyens.forEach(citoyen => {
+                    const row = listeCitoyensTable.insertRow();
+                    row.insertCell().textContent = citoyen.id;
+                    row.insertCell().textContent = citoyen.nom;
+                    row.insertCell().textContent = citoyen.prenom;
+                    row.insertCell().textContent = citoyen.email;
+                    row.insertCell().textContent = citoyen.date_inscription;
+                    row.insertCell().innerHTML = `
+                        <a href="#" onclick="modifierCitoyen(${citoyen.id})">Modifier</a> |
+                        <a href="#" onclick="supprimerCitoyen(${citoyen.id})">Supprimer</a>
+                    `;
+                });
+            } catch (error) {
+                console.error('Erreur lors du chargement des citoyens :', error);
+            }
+        });
+
+        function modifierCitoyen(id) {
+            alert(`Modifier le citoyen avec l'ID ${id}`);
+            // Ajoutez ici la logique pour modifier un citoyen
+        }
+
+        function supprimerCitoyen(id) {
+            if (confirm(`Êtes-vous sûr de vouloir supprimer le citoyen avec l'ID ${id} ?`)) {
+                alert(`Citoyen avec l'ID ${id} supprimé.`);
+                // Ajoutez ici la logique pour supprimer un citoyen
+            }
+        }
+    </script>
+</body>
+</html>

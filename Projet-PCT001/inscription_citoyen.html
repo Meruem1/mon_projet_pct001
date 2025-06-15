@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription - De La MAIRIE DE BOTRO</title>
+    <link rel="stylesheet" href="ressources/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Inscription</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="connexion_citoyen.html">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Créer un Compte</h2>
+            <p>Veuillez remplir le formulaire ci-dessous pour créer un compte.</p>
+            <!-- Correction de l'attribut action -->
+            <form action="/Projet-PCT001/api/inscription.php" method="POST">
+                <div>
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div>
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                </div>
+                <div>
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="telephone">Téléphone :</label>
+                    <input type="tel" id="telephone" name="telephone" required>
+                </div>
+                <div>
+                    <label for="mot_de_passe">Mot de Passe :</label>
+                    <input type="password" id="mot_de_passe" name="mot_de_passe" required>
+                </div>
+                <div>
+                    <label for="confirmer_mot_de_passe">Confirmer le Mot de Passe :</label>
+                    <input type="password" id="confirmer_mot_de_passe" name="confirmer_mot_de_passe" required>
+                </div>
+                <button type="submit">S'inscrire</button>
+            </form>
+        </section>
+        <section>
+            <p>Vous avez déjà un compte ? <a href="connexion_citoyen.html">Connectez-vous ici</a>.</p>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 MAIRIE DE BOTRO</p>
+    </footer>
+</body>
+</html>
