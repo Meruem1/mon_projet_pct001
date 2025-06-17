@@ -37,23 +37,7 @@
                     </tr>
                 </thead>
                 <tbody id="liste_demandes">
-                    <tr>
-                        <td>1</td>
-                        <td>Naissance</td>
-                        <td>citoyen1@exemple.com</td>
-                        <td>2025-05-04</td>
-                        <td>En attente</td>
-                        <td><a href="#">Voir</a> | <a href="#">Traiter</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Mariage</td>
-                        <td>citoyen2@exemple.com</td>
-                        <td>2025-05-03</td>
-                        <td>Traitée</td>
-                        <td><a href="#">Voir</a> | <a href="#">Télécharger PDF</a></td>
-                    </tr>
-                    </tbody>
+                </tbody>
             </table>
         </section>
     </main>
@@ -62,35 +46,123 @@
     </footer>
     <script src="../ressources/js/script.js"></script>
     <script>
-        // Ici, vous utiliserez JavaScript pour récupérer la liste des demandes d'actes
-        // depuis le backend et les afficher dynamiquement dans le tableau.
+        // Récupérer et afficher les demandes d'actes depuis la base de données
         document.addEventListener('DOMContentLoaded', function() {
-            // Exemple de données (à remplacer par un appel API réel)
-            const demandes = [
-                { id: 1, type: 'Naissance', demandeur: 'citoyen1@exemple.com', date: '2025-05-04', statut: 'En attente' },
-                { id: 2, type: 'Mariage', demandeur: 'citoyen2@exemple.com', date: '2025-05-03', statut: 'Traitée' },
-                { id: 3, type: 'Décès', demandeur: 'citoyen3@exemple.com', date: '2025-05-02', statut: 'En attente' }
-            ];
-
             const listeDemandesTable = document.getElementById('liste_demandes');
+            
+            // Vider le tableau (supprimer les données d'exemple)
+            listeDemandesTable.innerHTML = '';
+            
+            // Appel AJAX pour récupérer les vraies demandes
+            fetch('../api/get_demandes.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        if (data.demandes.length === 0) {
+                            // Aucune demande trouvée
+                            const row = listeDemandesTable.insertRow();
+                            const cell = row.insertCell();
+                            cell.colSpan = 6;
+                            cell.textContent = 'Aucune demande d\'acte trouvée.';
+                            cell.style.textAlign = 'center';
+                            cell.style.fontStyle = 'italic';
+                        } else {
+                            // Afficher les demandes
+                            data.demandes.forEach(demande => {
+                                const row = listeDemandesTable.insertRow();
+                                const idCell = row.insertCell();
+                                const typeCell = row.insertCell();
+                                const demandeurCell = row.insertCell();
+                                const dateCell = row.insertCell();
+                                const statutCell = row.insertCell();
+                                const actionsCell = row.insertCell();
 
-            demandes.forEach(demande => {
-                const row = listeDemandesTable.insertRow();
-                const idCell = row.insertCell();
-                const typeCell = row.insertCell();
-                const demandeurCell = row.insertCell();
-                const dateCell = row.insertCell();
-                const statutCell = row.insertCell();
-                const actionsCell = row.insertCell();
-
-                idCell.textContent = demande.id;
-                typeCell.textContent = demande.type;
-                demandeurCell.textContent = demande.demandeur;
-                dateCell.textContent = demande.date;
-                statutCell.textContent = demande.statut;
-                actionsCell.innerHTML = `<a href="#">Voir</a> | <a href="#">Traiter</a>`; // Ajouter des liens appropriés
-            });
+                                idCell.textContent = demande.id;
+                                typeCell.textContent = capitalizeFirst(demande.type_acte);
+                                demandeurCell.innerHTML = `<small>${demande.details || 'Détails non disponibles'}</small>`;
+                                dateCell.textContent = formatDate(demande.date_demande);
+                                statutCell.textContent = demande.statut;
+                                
+                                // Colorer le statut
+                                if (demande.statut === 'En attente') {
+                                    statutCell.style.color = 'orange';
+                                    statutCell.style.fontWeight = 'bold';
+                                } else if (demande.statut === 'Traitée') {
+                                    statutCell.style.color = 'green';
+                                    statutCell.style.fontWeight = 'bold';
+                                }
+                                
+                                actionsCell.innerHTML = `
+                                    <a href="#" onclick="voirDemande(${demande.id}, '${demande.type_acte}')">Voir</a> | 
+                                    <a href="#" onclick="traiterDemande(${demande.id}, '${demande.type_acte}')">Traiter</a>
+                                `;
+                            });
+                        }
+                    } else {
+                        // Erreur lors de la récupération
+                        const row = listeDemandesTable.insertRow();
+                        const cell = row.insertCell();
+                        cell.colSpan = 6;
+                        cell.textContent = 'Erreur lors du chargement des demandes: ' + (data.error || 'Erreur inconnue');
+                        cell.style.textAlign = 'center';
+                        cell.style.color = 'red';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    const row = listeDemandesTable.insertRow();
+                    const cell = row.insertCell();
+                    cell.colSpan = 6;
+                    cell.textContent = 'Erreur de connexion lors du chargement des demandes.';
+                    cell.style.textAlign = 'center';
+                    cell.style.color = 'red';
+                });
         });
+        
+        // Fonctions utilitaires
+        function capitalizeFirst(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('fr-FR');
+        }
+        
+        // Fonctions pour les actions
+        function voirDemande(id, type) {
+            alert(`Voir la demande ${type} #${id}\n(Fonctionnalité à implémenter)`);
+        }
+        
+        function traiterDemande(id, type) {
+            if (confirm(`Marquer la demande ${type} #${id} comme traitée ?`)) {
+                // Appel AJAX pour mettre à jour le statut
+                fetch('../api/update_statut_demande.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: id,
+                        type_acte: type,
+                        statut: 'Traitée'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Demande marquée comme traitée avec succès !');
+                        location.reload(); // Recharger la page pour voir les changements
+                    } else {
+                        alert('Erreur lors de la mise à jour: ' + (data.error || 'Erreur inconnue'));
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    alert('Erreur de connexion lors de la mise à jour du statut.');
+                });
+            }
+        }
     </script>
 </body>
 </html>
